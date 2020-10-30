@@ -21,18 +21,17 @@ function generate_password($options) {
   $symbols = '!@#$%^&*()';
 
   //extract configuration flags into variables
-  $use_lower = isset($options['lower']) ? $options['lower'] : '0';
+  $use_lower = isset($options['lower']) ? $options['lower'] : '0';;
   $use_upper = isset($options['upper']) ? $options['upper'] : '0';;
   $use_numbers = isset($options['numbers']) ? $options['numbers'] : '0';;
   $use_symbols = isset($options['symbols']) ? $options['symbols'] : '0';;
+  $length = empty($options['length']) ? 0 : $options['length'];;
 
   $chars = '';
   if($use_lower == '1') { $chars .= $lower; }
   if($use_upper == '1') { $chars .= $upper; }
   if($use_numbers == '1') { $chars .= $numbers; }
   if($use_symbols == '1') { $chars .= $symbols; }
-
-  $length = isset($options['length']) ? $options['length'] : 8;
   return random_string($length, $chars);
 }
 $options = array(
@@ -59,11 +58,10 @@ $password = generate_password($options);
 
     <p>Generate a new password using the form options.</>
     <form action="" method="get">
-      <!--Loop the checkboxes and grab the names from array,re-do the save state checking with php functions-->
+      <!--Loop the checkboxes and grab the names from array,re-do the save state checking with php functions, add defaults-->
       Length: <input type="text" name="length" value= "<?php
-       if(isset($_GET['length'])) {echo $_GET['length'];}
+        echo $_GET['length'];
       ?>" /><br />
-      <!--use number line-->
       <input type="checkbox" name="lower" value="1" <?php
         if($_GET['lower'] == 1) {echo 'checked';}
       ?> /> Lowercase<br />
